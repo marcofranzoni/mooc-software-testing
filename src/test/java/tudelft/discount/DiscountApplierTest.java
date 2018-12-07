@@ -66,4 +66,20 @@ public class DiscountApplierTest {
         discountApplier.setNewPrices();
 
     }
+
+    @Test
+    void nullCategoryDiscountApplier() {
+
+        Product firstProduct = new Product("firstProduct", 1, null);
+        ProductDao dao = Mockito.mock(ProductDao.class);
+
+        List<Product> products = Arrays.asList(firstProduct);
+        Mockito.when(dao.all()).thenReturn(products);
+
+        DiscountApplier discountApplier = new DiscountApplier(dao);
+        discountApplier.setNewPrices();
+
+        assertEquals(1, firstProduct.getPrice());
+
+    }
 }
